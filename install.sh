@@ -9,21 +9,32 @@
 # 	Running the script if you have downloaded it:
 #		./install.sh
 
+# Configuration
+SOLOIST_DIR="${HOME}/src/pub/soloist"
 
+# Functions
 function pause(){
    read -p "$*"
 }
 
-errorout() {
+function errorout() {
   echo -e "\x1b[31;1mERROR:\x1b[0m ${1}"; exit 1
 }
 
-SOLOIST_DIR="${HOME}/src/pub/soloist"
-
+# Let's get started
 pushd `pwd`
 
+echo "Please enter your sudo password to make changes to your machine"
+sudo echo ''
+
+
+# Xcode automated installation
 if [ ! -d "/Applications/Xcode.app" ]; then
-	echo "INFO: Xcode and the Xcode command line tools must be installed"
+
+# DL: https://s3.amazonaws.com/pse-downloads/installers/xcode_6.1.1.dmg
+# DL: https://s3.amazonaws.com/pse-downloads/installers/xcode_6.1.1_commandline_tools.dmg
+
+	echo "Xcode and the Xcode command line tools must be installed"
 	echo "to run Pivotal Sprout-wrap.  "
 	echo " "
 	echo "When prompted be sure  to click the 'Get Xcode' button that pops up"
@@ -36,17 +47,37 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 
 	echo " "
 	echo " "
-	echo "INFO: Once the Xcode installation is complete."
+	echo "Once the Xcode installation is complete."
 	pause 'Press [Enter] key to start Sprout Wrap installation...'
 	echo " "
 	echo " "
 fi
 
 
+# Xcode license acceptance
+echo "Please enter your sudo password to make changes to your machine"
+sudo echo ''
 
+curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
+
+# We need to accept the xcodebuild license agreement before building anything works
+if [ -x "$(which expect)" ]; then
+  echo "By using this script, you automatically accept the Xcode License agreement found here: http://www.apple.com/legal/sla/docs/xcode.pdf"
+  expect ./accept-xcode-license.exp
+else
+  echo -e "\x1b[31;1mERROR:\x1b[0m Could not find expect utility (is '$(which expect)' executable?)"
+  echo -e "\x1b[31;1mWarning:\x1b[0m You have not agreed to the Xcode license.\nBuilds will fail! Agree to the license by opening Xcode.app or running:\n
+    xcodebuild -license\n\nOR for system-wide acceptance\n
+    sudo xcodebuild -license"
+  exit 1
+fi
+
+
+
+# Sprout wrap installation
 mkdir -p "$SOLOIST_DIR"; cd "$SOLOIST_DIR/"
 
-echo "INFO: Checking out sprout-wrap-pivotal..."
+echo "Checking out sprout-wrap-pivotal..."
 if [ -d sprout-wrap-pivotal ]; then
   pushd sprout-wrap-pivotal && git pull
 else
@@ -54,9 +85,12 @@ else
   pushd sprout-wrap-pivotal
 fi
 
-
-echo "Please enter your sudo password to make changes to your machine"
-sudo echo ''
+# Setup the local .bashrc and tooling
+# Dotfiles are maintained in the ~/bin/dotfiles directory of scripts
+cp -R sprout-wrap-pivotal/bin ~/
+printf ". ~/bin/dotfiles/bashrc" >> ~/.bashrc 
+printf ". ~/bin/dotfiles/zshrc" >> ~/.zshrc
+ln -s ~/bin/dotfiles/ssh/config ~/.ssh/config
 
 
 rvm --version 2>/dev/null
