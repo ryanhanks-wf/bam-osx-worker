@@ -10,12 +10,15 @@
 
 
 echo "Xcode and the Xcode command line tools must be installed"
-echo "to run Pivotal Sprout-wrap.  When prompted, please,"
-echo "click the 'Get XCode' button to proceed."
-read -p "Press any key to begin... " -n1 -s
+echo "to run Pivotal Sprout-wrap.  "
+echo "When prompted be sure  to click the 'Get Xcode' button that pops up"
+read -p "Press [Enter] key to start the Xcode installation..."
 
 # Force the Yosemite prompt for the installation of Xcode and the Xcode command line tools by using git
 git --version
+
+echo "Once the Xcode installation is complete."
+read -p "Press [Enter] key to start Sprout Wrap installation..."
 
 SOLOIST_DIR="${HOME}/src/pub/soloist"
 
