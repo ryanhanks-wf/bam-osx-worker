@@ -21,48 +21,53 @@ function errorout() {
   echo -e "\x1b[31;1mERROR:\x1b[0m ${1}"; exit 1
 }
 
-# Let's get started
-pushd `pwd`
 
-echo "Please enter your sudo password to make changes to your machine"
+# Xcode interactive/automated installation
+printf "Please enter your sudo password to make changes to your machine\n"
 sudo echo ''
 
-
-# Xcode automated installation
 if [ ! -d "/Applications/Xcode.app" ]; then
 
-# DL: https://s3.amazonaws.com/pse-downloads/installers/xcode_6.1.1.dmg
 # DL: https://s3.amazonaws.com/pse-downloads/installers/xcode_6.1.1_commandline_tools.dmg
 
-	echo "Xcode and the Xcode command line tools must be installed"
-	echo "to run Pivotal Sprout-wrap.  "
-	echo " "
-	echo "When prompted be sure  to click the 'Get Xcode' button that pops up"
+	printf "\x1b[31;1mXcode\x1b[0m must be installed to run Pivotal Sprout Wrap.\n"
+	printf "When prompted be sure to click the 'Install' button that pops up\n"
 	pause 'Press [Enter] key to start the Xcode installation...'
-	echo " "
-	echo " "
 
 	# Force the Yosemite prompt for the installation of Xcode and the Xcode command line tools by using git
 	git --version
 
-	echo " "
-	echo " "
-	echo "Once the Xcode installation is complete."
-	pause 'Press [Enter] key to start Sprout Wrap installation...'
-	echo " "
-	echo " "
+	printf "Once the Xcode installation is complete.\n"
+	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
+
+	# Alt auto install: 
+	# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-install.sh | sudo bash
+
 fi
 
 
-# Xcode license acceptance
-echo "Please enter your sudo password to make changes to your machine"
-sudo echo ''
+# Xcode CLI interactive/automated installation
+  	printf "\x1b[31;1mXcode Command Line Tools\x1b[0m must be installed to run Pivotal Sprout Wrap.\n"
+	printf "When prompted be sure to click the 'Install' button that pops up\n"
+	pause 'Press [Enter] key to start the Xcode Command Line Tools installation...'
+	
+	# Alt auto install: 
+	curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install | sudo bash
 
+	printf "\n\nOnce the Xcode Command Line Tools installation is complete.\n"
+	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
+
+
+  	xcode-select --install
+  	pause 'XCLI DEBUG: Press [Enter] key to continue...'
+
+
+# Xcode license acceptance
 curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
 
 # We need to accept the xcodebuild license agreement before building anything works
 if [ -x "$(which expect)" ]; then
-  echo "By using this script, you automatically accept the Xcode License agreement found here: http://www.apple.com/legal/sla/docs/xcode.pdf"
+  echo "\x1b[31;1mBy using this script, you automatically accept the Xcode License agreement found here: http://www.apple.com/legal/sla/docs/xcode.pdf\x1b[0m"
   expect ./accept-xcode-license.exp
 else
   echo -e "\x1b[31;1mERROR:\x1b[0m Could not find expect utility (is '$(which expect)' executable?)"
@@ -72,12 +77,17 @@ else
   exit 1
 fi
 
+# Special Ruby handling req'd on a new Yosemite installation, otherwise nokogiri will fail to install
+printf "Updating Ruby...\n\n"
+sudo gem update --system
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+gem uninstall nokogiri
+gem install nokogiri
 
-
-# Sprout wrap installation
+# Sprout Wrap installation
 mkdir -p "$SOLOIST_DIR"; cd "$SOLOIST_DIR/"
 
-echo "Checking out sprout-wrap-pivotal..."
+printf "Checking out Sprout Wrap...\n\n"
 if [ -d sprout-wrap-pivotal ]; then
   pushd sprout-wrap-pivotal && git pull
 else
@@ -87,12 +97,16 @@ fi
 
 # Setup the local .bashrc and tooling
 # Dotfiles are maintained in the ~/bin/dotfiles directory of scripts
+printf "Setting up bash and tooling...\n\n"
+pwd
 cp -R sprout-wrap-pivotal/bin ~/
 printf ". ~/bin/dotfiles/bashrc" >> ~/.bashrc 
 printf ". ~/bin/dotfiles/zshrc" >> ~/.zshrc
+mkdir -p ~/.ssh
 ln -s ~/bin/dotfiles/ssh/config ~/.ssh/config
 
-
+# Run Sprout Wrap
+printf "Running Sprout Wrap...\n\n"
 rvm --version 2>/dev/null
 [ ! -x "$(which gem)" -a "$?" -eq 0 ] || USE_SUDO='sudo'
 
@@ -106,4 +120,3 @@ export rvm_path="${rvm_prefix}/.rvm"
 # Now we provision with chef
 soloist || errorout "Soloist provisioning failed!"
 
-echo "Done"
