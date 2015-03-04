@@ -15,16 +15,23 @@ function pause(){
 }
 
 if [ ! -d "/Applications/Xcode.app" ]; then
-	echo "Xcode and the Xcode command line tools must be installed"
+	echo "INFO: Xcode and the Xcode command line tools must be installed"
 	echo "to run Pivotal Sprout-wrap.  "
+	echo " "
 	echo "When prompted be sure  to click the 'Get Xcode' button that pops up"
 	pause 'Press [Enter] key to start the Xcode installation...'
+	echo " "
+	echo " "
 
 	# Force the Yosemite prompt for the installation of Xcode and the Xcode command line tools by using git
 	git --version
 
+	echo " "
+	echo " "
 	echo "Once the Xcode installation is complete."
 	pause 'Press [Enter] key to start Sprout Wrap installation...'
+	echo " "
+	echo " "
 fi
 
 
