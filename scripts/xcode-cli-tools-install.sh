@@ -5,9 +5,10 @@ XCODECLI_DMG=xcode_6.1.1_commandline_tools.dmg
 XCODECLI_URL=https://s3.amazonaws.com/pse-downloads/installers/
 
 echo "Installing Xcode Command Line Tools..."
+echo "${XCODECLI_URL}${XCODECLI_DMG}"
 
   if [ ! -e "$XCODECLI_DMG" ]; then
-    curl -L -O "${XCODE_URL}${XCODECLI_DMG}"
+    curl -L -O "${XCODECLI_URL}${XCODECLI_DMG}"
   fi
 
 TMPMOUNT=`/usr/bin/mktemp -d /tmp/clitools.XXXX`
