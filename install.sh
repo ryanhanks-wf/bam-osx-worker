@@ -14,6 +14,14 @@ function pause(){
    read -p "$*"
 }
 
+errorout() {
+  echo -e "\x1b[31;1mERROR:\x1b[0m ${1}"; exit 1
+}
+
+SOLOIST_DIR="${HOME}/src/pub/soloist"
+
+pushd `pwd`
+
 if [ ! -d "/Applications/Xcode.app" ]; then
 	echo "INFO: Xcode and the Xcode command line tools must be installed"
 	echo "to run Pivotal Sprout-wrap.  "
@@ -28,20 +36,13 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 
 	echo " "
 	echo " "
-	echo "Once the Xcode installation is complete."
+	echo "INFO: Once the Xcode installation is complete."
 	pause 'Press [Enter] key to start Sprout Wrap installation...'
 	echo " "
 	echo " "
 fi
 
 
-SOLOIST_DIR="${HOME}/src/pub/soloist"
-
-errorout() {
-  echo -e "\x1b[31;1mERROR:\x1b[0m ${1}"; exit 1
-}
-
-pushd `pwd`
 
 mkdir -p "$SOLOIST_DIR"; cd "$SOLOIST_DIR/"
 
