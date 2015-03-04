@@ -4,9 +4,10 @@
 #
 # Usage:
 #   Running the script remotely:
-#	  \curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/install.sh | bash
-#   Running the script if you have downloaded it:
-#     ./install.sh
+#	  	bash <(curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/install.sh)
+#   
+# 	Running the script if you have downloaded it:
+#		./install.sh
 
 
 function pause(){
