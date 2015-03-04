@@ -52,7 +52,7 @@ fi
 	pause 'Press [Enter] key to start the Xcode Command Line Tools installation...'
 	
 	# Alt auto install: 
-	curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install | sudo bash
+	curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
 
 	printf "\n\nOnce the Xcode Command Line Tools installation is complete.\n"
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
