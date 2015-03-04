@@ -9,16 +9,21 @@
 #     ./install.sh
 
 
+function pause(){
+   read -p "$*"
+}
+
+
 echo "Xcode and the Xcode command line tools must be installed"
 echo "to run Pivotal Sprout-wrap.  "
 echo "When prompted be sure  to click the 'Get Xcode' button that pops up"
-read -p "Press [Enter] key to start the Xcode installation..."
+pause 'Press [Enter] key to start the Xcode installation...'
 
 # Force the Yosemite prompt for the installation of Xcode and the Xcode command line tools by using git
 git --version
 
 echo "Once the Xcode installation is complete."
-read -p "Press [Enter] key to start Sprout Wrap installation..."
+pause 'Press [Enter] key to start Sprout Wrap installation...'
 
 SOLOIST_DIR="${HOME}/src/pub/soloist"
 
@@ -55,3 +60,5 @@ export rvm_path="${rvm_prefix}/.rvm"
 
 # Now we provision with chef
 soloist || errorout "Soloist provisioning failed!"
+
+echo "Done"
