@@ -20,6 +20,10 @@ recipes:
 - sprout-git::projects
 - sprout-git::git_scripts
 
+# development (java)
+- sprout-osx-apps::java
+- sprout-jetbrains-editors::intellij_ce
+
 # development (rails)
 - sprout-rbenv
 - sprout-ruby
@@ -84,6 +88,9 @@ node_attributes:
         - rbenv-binstubs
         - rbenv-gem-rehash
       casks:
+        - java
+        - intellij-idea-ce
+        - sts
         - ccmenu
         - firefox
         - gitx-rowanj

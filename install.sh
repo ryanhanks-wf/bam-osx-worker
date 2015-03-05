@@ -50,7 +50,11 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	printf "\n\nOnce the Xcode installation is complete.\n"
 	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
 
-	# Xcode CLI interactive/automated installation
+
+fi
+
+
+		# Xcode CLI interactive/automated installation
   	printf "Xcode CLI Tools missing: $EGREEN Xcode Command Line Tools $NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
 	printf "When prompted be sure to click the $EYELLOW'Install'$NO_COLOR button that pops up\n"
 	pause 'Press [Enter] key to start the Xcode Command Line Tools installation...'
@@ -63,9 +67,7 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 
 	printf "\n\nOnce the $EGREEN Xcode Command Line Tools $NO_COLOR installation is complete.\n"
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
-
-fi
-
+	
 
 # Xcode license acceptance
 curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
