@@ -31,6 +31,9 @@ function errorout() {
 }
 
 
+echo "Please enter your sudo password to make changes to your machine"
+sudo echo ''
+
 # Xcode interactive/automated installation
 if [ ! -d "/Applications/Xcode.app" ]; then
 
@@ -41,13 +44,11 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	# Force the Yosemite prompt for the installation of Xcode
 	git --version
 
-	# Or, alt auto install (more testing needed): 
-	# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-install.sh | sudo bash
+		# Or, alt auto install (more testing needed): 
+		# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-install.sh | sudo bash
 
 	printf "\n\nOnce the Xcode installation is complete.\n"
 	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
-
-fi
 
 	# Xcode CLI interactive/automated installation
   	printf "Xcode CLI Tools missing: $EGREEN Xcode Command Line Tools $NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
@@ -57,23 +58,28 @@ fi
 	# Force the Yosemite prompt for the installation of the Xcode Command Line Tools
 	xcode-select --install
 
-	# Or, alt auto install (more testing needed): 
-	# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
+		# Or, alt auto install (more testing needed): 
+		# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
 
 	printf "\n\nOnce the $EGREEN Xcode Command Line Tools $NO_COLOR installation is complete.\n"
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
 
+fi
 
-echo "Please enter your sudo password to make changes to your machine"
-sudo echo ''
 
 # Xcode license acceptance
-# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
-# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-license-install.sh | sudo bash
+curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
 
-
-echo "Please enter your sudo password to make changes to your machine"
-sudo echo ''
+if [ -x "$(which expect)" ]; then
+  echo "By using this script, you automatically accept the Xcode License agreement found here: http://www.apple.com/legal/sla/docs/xcode.pdf"
+  expect ./accept-xcode-license.exp
+else
+  echo -e "\x1b[31;1mERROR:\x1b[0m Could not find expect utility (is '$(which expect)' executable?)"
+  echo -e "\x1b[31;1mWarning:\x1b[0m You have not agreed to the Xcode license.\nBuilds will fail! Agree to the license by opening Xcode.app or running:\n
+    xcodebuild -license\n\nOR for system-wide acceptance\n
+    sudo xcodebuild -license"
+  exit 1
+fi
 
 # Special Ruby handling req'd on a new Yosemite installation, otherwise nokogiri will fail to install
 printf "Updating Ruby...\n\n"
