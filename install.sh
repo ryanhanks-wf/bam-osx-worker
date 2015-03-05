@@ -103,7 +103,7 @@ fi
 # Dotfiles are maintained in the ~/bin/dotfiles directory of scripts
 printf "Setting up bash and tooling...\n\n"
 pwd
-cp -r "${SOLOIST_DIR}/bin" ~/
+cp -r "${SOLOIST_DIR}/sprout-wrap-pivotal/bin" ~/
 printf ". ~/bin/dotfiles/bashrc" >> ~/.bashrc 
 printf ". ~/bin/dotfiles/zshrc" >> ~/.zshrc
 mkdir -p ~/.ssh
