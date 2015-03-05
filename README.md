@@ -1,6 +1,4 @@
-# sprout-wrap
-
-[![Build Status](https://travis-ci.org/pivotal-sprout/sprout-wrap.png?branch=master)](https://travis-ci.org/pivotal-sprout/sprout-wrap)
+# sprout-wrap-pivotal
 
 This project uses [soloist](https://github.com/mkocher/soloist) and [librarian-chef](https://github.com/applicationsonline/librarian-chef)
 to run a subset of the recipes in sprout's cookbooks.
@@ -13,7 +11,19 @@ Mavericks workstation for Ruby development.
 
 Finally, if you've never used Chef before - we highly recommend you buy &amp; watch [this excellent 17 minute screencast](http://railscasts.com/episodes/339-chef-solo-basics) by Ryan Bates. 
 
-## Installation under Mavericks (OS X 10.9)
+
+## Automated Interactive Installation under Yosemite (OC X 10.10)
+
+Run the script remotely:
+
+    bash <(curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/install.sh)
+
+Or, run the script locally if you have downloaded it:
+
+    ./install.sh
+
+
+## Manual Installation under Yosemite (OS X 10.10)
 
 ### 1. Install Command Line Tools
   
@@ -23,8 +33,8 @@ If you receive a message about the update server being unavailable and are on Ma
 
 ### 2. Clone this project
 
-    git clone https://github.com/pivotal-sprout/sprout-wrap.git
-    cd sprout-wrap
+    git clone https://github.com/pivotalservices/sprout-wrap-pivotal.git
+    cd sprout-wrap-pivotal
 
 ### 3. Install soloist & and other required gems
 
