@@ -34,9 +34,9 @@ function errorout() {
 # Xcode interactive/automated installation
 if [ ! -d "/Applications/Xcode.app" ]; then
 
-  	printf "Step 1: $EREDXcode$NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
+  	printf "Xcode missing: $ERED Xcode $NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
 	printf "When prompted be sure to click the $EYELLOW'Install'$NO_COLOR button that pops up\n"
-	pause 'Press [Enter] key to start the $EREDXcode$NO_COLOR installation...'
+	pause 'Press [Enter] key to start the $ERED Xcode $NO_COLOR installation...'
 
 	# Force the Yosemite prompt for the installation of Xcode
 	git --version
@@ -47,8 +47,10 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	printf "\n\nOnce the Xcode installation is complete.\n"
 	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
 
+fi
+
 	# Xcode CLI interactive/automated installation
-  	printf "Step 2: $EGREENXcode Command Line Tools$NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
+  	printf "Xcode CLI Tools missing: $EGREEN Xcode Command Line Tools $NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
 	printf "When prompted be sure to click the $EYELLOW'Install'$NO_COLOR button that pops up\n"
 	pause 'Press [Enter] key to start the Xcode Command Line Tools installation...'
 	
@@ -58,29 +60,16 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	# Or, alt auto install (more testing needed): 
 	# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
 
-	printf "\n\nOnce the $EGREENXcode Command Line Tools$NO_COLOR installation is complete.\n"
+	printf "\n\nOnce the $EGREEN Xcode Command Line Tools $NO_COLOR installation is complete.\n"
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
-
-fi
 
 
 echo "Please enter your sudo password to make changes to your machine"
 sudo echo ''
 
 # Xcode license acceptance
-curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
-
-# We need to accept the xcodebuild license agreement before building anything works
-if [ -x "$(which expect)" ]; then
-  echo "\x1b[31;1mBy using this script, you automatically accept the Xcode License agreement found here: http://www.apple.com/legal/sla/docs/xcode.pdf\x1b[0m"
-  expect ./accept-xcode-license.exp
-else
-  echo -e "\x1b[31;1mERROR:\x1b[0m Could not find expect utility (is '$(which expect)' executable?)"
-  echo -e "\x1b[31;1mWarning:\x1b[0m You have not agreed to the Xcode license.\nBuilds will fail! Agree to the license by opening Xcode.app or running:\n
-    xcodebuild -license\n\nOR for system-wide acceptance\n
-    sudo xcodebuild -license"
-  exit 1
-fi
+# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
+# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-license-install.sh | sudo bash
 
 
 echo "Please enter your sudo password to make changes to your machine"
@@ -89,7 +78,7 @@ sudo echo ''
 # Special Ruby handling req'd on a new Yosemite installation, otherwise nokogiri will fail to install
 printf "Updating Ruby...\n\n"
 sudo gem update --system
-ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+# ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 # gem uninstall nokogiri
 # gem install nokogiri
 
@@ -108,7 +97,7 @@ fi
 # Dotfiles are maintained in the ~/bin/dotfiles directory of scripts
 printf "Setting up bash and tooling...\n\n"
 pwd
-cp -r bin ~/
+cp -r "${SOLOIST_DIR}/bin" ~/
 printf ". ~/bin/dotfiles/bashrc" >> ~/.bashrc 
 printf ". ~/bin/dotfiles/zshrc" >> ~/.zshrc
 mkdir -p ~/.ssh
