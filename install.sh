@@ -62,8 +62,6 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
 
 fi
-	
-pause 'XCLI DEBUG: Press [Enter] key to continue...'
 
 
 echo "Please enter your sudo password to make changes to your machine"
