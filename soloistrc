@@ -86,10 +86,10 @@ node_attributes:
         - wget
         - rbenv-binstubs
         - rbenv-gem-rehash
-        - maven31
-        - gradle
       casks:
         - java
+        - maven31
+        - gradle
         - cloudfoundry-cli
         - intellij-idea-ce
         - sts
