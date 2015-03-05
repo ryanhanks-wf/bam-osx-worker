@@ -9,6 +9,15 @@
 # 	Running the script if you have downloaded it:
 #		./install.sh
 
+# Colors
+NO_COLOR='\e[0m'
+EBLACK='\e[1;30m'
+ERED='\e[1;31m'
+EGREEN='\e[1;32m'
+EYELLOW='\e[1;33m'
+EBLUE='\e[1;34m'
+EWHITE='\e[1;37m'
+
 # Configuration
 SOLOIST_DIR="${HOME}/src/pub/soloist"
 
@@ -23,44 +32,42 @@ function errorout() {
 
 
 # Xcode interactive/automated installation
-printf "Please enter your sudo password to make changes to your machine\n"
-sudo echo ''
-
 if [ ! -d "/Applications/Xcode.app" ]; then
 
-# DL: https://s3.amazonaws.com/pse-downloads/installers/xcode_6.1.1_commandline_tools.dmg
+  	printf "Step 1: $EREDXcode$NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
+	printf "When prompted be sure to click the $EYELLOW'Install'$NO_COLOR button that pops up\n"
+	pause 'Press [Enter] key to start the $EREDXcode$NO_COLOR installation...'
 
-	printf "\x1b[31;1mXcode\x1b[0m must be installed to run Pivotal Sprout Wrap.\n"
-	printf "When prompted be sure to click the 'Install' button that pops up\n"
-	pause 'Press [Enter] key to start the Xcode installation...'
-
-	# Force the Yosemite prompt for the installation of Xcode and the Xcode command line tools by using git
+	# Force the Yosemite prompt for the installation of Xcode
 	git --version
 
-	printf "Once the Xcode installation is complete.\n"
-	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
-
-	# Alt auto install: 
+	# Or, alt auto install (more testing needed): 
 	# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-install.sh | sudo bash
 
-fi
+	printf "\n\nOnce the Xcode installation is complete.\n"
+	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
 
-
-# Xcode CLI interactive/automated installation
-  	printf "\x1b[31;1mXcode Command Line Tools\x1b[0m must be installed to run Pivotal Sprout Wrap.\n"
-	printf "When prompted be sure to click the 'Install' button that pops up\n"
+	# Xcode CLI interactive/automated installation
+  	printf "Step 2: $EGREENXcode Command Line Tools$NO_COLOR must be installed to run Pivotal Sprout Wrap.\n"
+	printf "When prompted be sure to click the $EYELLOW'Install'$NO_COLOR button that pops up\n"
 	pause 'Press [Enter] key to start the Xcode Command Line Tools installation...'
 	
-	# Alt auto install: 
-	curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
+	# Force the Yosemite prompt for the installation of the Xcode Command Line Tools
+	xcode-select --install
 
-	printf "\n\nOnce the Xcode Command Line Tools installation is complete.\n"
+	# Or, alt auto install (more testing needed): 
+	# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
+
+	printf "\n\nOnce the $EGREENXcode Command Line Tools$NO_COLOR installation is complete.\n"
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
 
+fi
+	
+pause 'XCLI DEBUG: Press [Enter] key to continue...'
 
-  	xcode-select --install
-  	pause 'XCLI DEBUG: Press [Enter] key to continue...'
 
+echo "Please enter your sudo password to make changes to your machine"
+sudo echo ''
 
 # Xcode license acceptance
 curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
@@ -77,12 +84,16 @@ else
   exit 1
 fi
 
+
+echo "Please enter your sudo password to make changes to your machine"
+sudo echo ''
+
 # Special Ruby handling req'd on a new Yosemite installation, otherwise nokogiri will fail to install
 printf "Updating Ruby...\n\n"
 sudo gem update --system
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-gem uninstall nokogiri
-gem install nokogiri
+# gem uninstall nokogiri
+# gem install nokogiri
 
 # Sprout Wrap installation
 mkdir -p "$SOLOIST_DIR"; cd "$SOLOIST_DIR/"
@@ -99,7 +110,7 @@ fi
 # Dotfiles are maintained in the ~/bin/dotfiles directory of scripts
 printf "Setting up bash and tooling...\n\n"
 pwd
-cp -R sprout-wrap-pivotal/bin ~/
+cp -r bin ~/
 printf ". ~/bin/dotfiles/bashrc" >> ~/.bashrc 
 printf ". ~/bin/dotfiles/zshrc" >> ~/.zshrc
 mkdir -p ~/.ssh

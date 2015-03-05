@@ -5,7 +5,6 @@ TOOLS=clitools.dmg
 DMGURL=https://s3.amazonaws.com/pse-downloads/installers/xcode_6.1.1_commandline_tools.dmg
 
 echo "Installing Xcode Command Line Tools..."
-echo "${DMGURL}"
 
 if [ ! -f "$TOOLS" ]; then
   curl "$DMGURL" -o "$TOOLS"
