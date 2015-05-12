@@ -93,18 +93,18 @@ sudo gem update --system
 mkdir -p "$SOLOIST_DIR"; cd "$SOLOIST_DIR/"
 
 printf "Checking out Sprout Wrap...\n\n"
-if [ -d sprout-wrap-pivotal ]; then
-  pushd sprout-wrap-pivotal && git pull
+if [ -d bam-osx-worker ]; then
+  pushd bam-osx-worker && git pull
 else
   git clone https://github.com/ryanhanks-wf/bam-osx-worker.git
-  pushd sprout-wrap-pivotal
+  pushd bam-osx-worker
 fi
 
 # Setup the local .bashrc and tooling
 # Dotfiles are maintained in the ~/bin/dotfiles directory of scripts
 printf "Setting up bash and tooling...\n\n"
 pwd
-cp -r "${SOLOIST_DIR}/sprout-wrap-pivotal/bin" ~/
+cp -r "${SOLOIST_DIR}/bam-osx-worker/bin" ~/
 printf ". ~/bin/dotfiles/bashrc" >> ~/.bashrc 
 printf ". ~/bin/dotfiles/zshrc" >> ~/.zshrc
 mkdir -p ~/.ssh

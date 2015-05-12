@@ -1,4 +1,4 @@
-# sprout-wrap-pivotal
+# bam-osx-worker
 
 This project uses [soloist](https://github.com/mkocher/soloist) and [librarian-chef](https://github.com/applicationsonline/librarian-chef)
 to run a subset of the recipes in sprout's cookbooks.
@@ -34,7 +34,7 @@ If you receive a message about the update server being unavailable and are on Ma
 ### 2. Clone this project
 
     git clone https://github.com/ryanhanks-wf/bam-osx-worker.git
-    cd sprout-wrap-pivotal
+    cd bam-osx-worker
 
 ### 3. Install soloist & and other required gems
 
