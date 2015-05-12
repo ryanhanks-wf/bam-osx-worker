@@ -16,7 +16,7 @@ Finally, if you've never used Chef before - we highly recommend you buy &amp; wa
 
 Run the script remotely:
 
-    bash <(curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/sprout-wrap-pivotal/master/install.sh)
 
 Or, run the script locally if you have downloaded it:
 
