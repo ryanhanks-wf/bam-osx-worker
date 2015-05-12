@@ -16,7 +16,7 @@ Finally, if you've never used Chef before - we highly recommend you buy &amp; wa
 
 Run the script remotely:
 
-    bash <(curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/bam_osx_worker/master/install.sh)
+    bash <(curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/bam-osx-worker/master/install.sh)
 
 Or, run the script locally if you have downloaded it:
 
@@ -33,7 +33,7 @@ If you receive a message about the update server being unavailable and are on Ma
 
 ### 2. Clone this project
 
-    git clone https://github.com/pivotalservices/sprout-wrap-pivotal.git
+    git clone https://github.com/ryanhanks-wf/bam-osx-worker.git
     cd sprout-wrap-pivotal
 
 ### 3. Install soloist & and other required gems
