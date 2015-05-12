@@ -22,41 +22,51 @@ recipes:
 
 # development (java)
 - sprout-osx-apps::java
-- sprout-jetbrains-editors::intellij_ce
+# - sprout-jetbrains-editors::intellij_ce
 
 # development (rails)
-- sprout-rbenv
-- sprout-ruby
-- sprout-mysql
-- sprout-postgresql
+#- sprout-rbenv
+#- sprout-ruby
+#- sprout-mysql
+#- sprout-postgresql
 
 # apps
 - sprout-osx-apps::iterm2
-- sprout-osx-apps::flycut
+#- sprout-osx-apps::flycut
 - sprout-osx-apps::shiftit
 
 # apps (editors)
-- sprout-osx-apps::textmate_bundles
-- sprout-osx-apps::textmate_preferences
+#- sprout-osx-apps::textmate_bundles
+#- sprout-osx-apps::textmate_preferences
 - sprout-osx-apps::macvim
-- sprout-rubymine
+#- sprout-rubymine
 
 node_attributes:
   sprout:
     git:
-      domain: pivotallabs.com
+      domain: workiva.com
       authors:
-        - initials: ah
-          name: Abhijit Hiremagalur
-          username: abhi
-        - initials: bc
-          name: Brian Cunnie
-          username: cunnie
-        - initials: jrhb
-          name: Jonathan Barnes
-        - initials: lw
-          name: Luke Winikates
-          username: lwinikates
+        - initials: ak
+          name: Aaron Kavlie
+          username: aaronkavlie-wf
+        - initials: ed
+          name: Eric DeBusschere
+          username: ericdebusschere-wf
+        - initials: mm
+          name: Maddison Meier
+          username: maddisonmeier-wf
+        - initials: mr
+          name: Michael Reichstein
+          username: michaelreichstein-wf
+        - initials: po
+          name: Patrick O'Connor
+          username: patrickoconnor-wf
+        - initials: rh
+          name: Ryan Hanks
+          username: ryanhanks-wf
+        - initials: rob
+          name: Robert Harwell
+          username: robertharwell-wf
       projects:
         -
           name: sprout-wrap
@@ -73,14 +83,10 @@ node_attributes:
       magnification: false
     homebrew:
       formulae:
-        - ctags-exuberant
         - ag
         - chromedriver
-        - imagemagick
         - node
-        - qt
         - ssh-copy-id
-        - tmux
         - tree
         - watch
         - wget
@@ -88,21 +94,9 @@ node_attributes:
         - rbenv-gem-rehash
       casks:
         - java
-        - maven31
-        - gradle
-        - cloudfoundry-cli
-        - intellij-idea-ce
-        - sts
+        - maven30
         - ccmenu
         - firefox
-        - gitx-rowanj
-        - github
         - google-chrome
-        - google-drive
-        - google-hangouts
-        - skype
-        - textmate
         - vagrant
         - virtualbox
-        - xquartz
-        - xscope
