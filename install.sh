@@ -4,7 +4,7 @@
 #
 # Usage:
 #   Running the script remotely:
-#	  	bash <(curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/install.sh)
+#	  	bash <(curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/bam-osx-worker/master/install.sh)
 #   
 # 	Running the script if you have downloaded it:
 #		./install.sh
@@ -45,7 +45,7 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	git --version
 
 		# Or, alt auto install (more testing needed): 
-		# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-install.sh | sudo bash
+		# curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/bam-osx-worker/master/scripts/xcode-install.sh | sudo bash
 
 	printf "\n\nOnce the Xcode installation is complete.\n"
 	pause 'Press [Enter] key to continue and install the Xcode Command Line Tools...'
@@ -60,7 +60,7 @@ if [ ! -d "/Applications/Xcode.app" ]; then
 	xcode-select --install
 
 		# Or, alt auto install (more testing needed): 
-		# curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/xcode-cli-tools-install.sh | sudo bash
+		# curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/bam-osx-worker/master/scripts/xcode-cli-tools-install.sh | sudo bash
 
 	printf "\n\nOnce the $EGREEN Xcode Command Line Tools $NO_COLOR installation is complete.\n"
 	pause 'Press [Enter] key to continue the Sprout Wrap installation...'
@@ -69,7 +69,7 @@ fi
 
 
 # Xcode license acceptance
-curl -Ls https://raw.githubusercontent.com/pivotalservices/sprout-wrap-pivotal/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
+curl -Ls https://raw.githubusercontent.com/ryanhanks-wf/bam-osx-worker/master/scripts/accept-xcode-license.exp > accept-xcode-license.exp
 
 if [ -x "$(which expect)" ]; then
   echo "By using this script, you automatically accept the Xcode License agreement found here: http://www.apple.com/legal/sla/docs/xcode.pdf"
@@ -96,7 +96,7 @@ printf "Checking out Sprout Wrap...\n\n"
 if [ -d sprout-wrap-pivotal ]; then
   pushd sprout-wrap-pivotal && git pull
 else
-  git clone https://github.com/pivotalservices/sprout-wrap-pivotal.git
+  git clone https://github.com/ryanhanks-wf/bam-osx-worker.git
   pushd sprout-wrap-pivotal
 fi
 
